@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/d5fe54396d.js"></script>
+  </head>
+  <body>
+       <!-- header-->
+       <div class="page-header visible-lg">
+           <img class="header-avatar" width="70" height="70"src="images/thumb_IMG_5962_1024.jpg">
+           <div class="header-content">
+               <h4>NIKITHA PALAVARAPU</h4>
+               <h4>DAT605 Cloud Computing/Development</h4>
+           </div>
+       </div>
+
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-default">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <div class="container">
+                <ul class="nav navbar-nav navbar-left">
+                    <li ><a href="#">Home</a></li>
+
+                    <li ><a href="assignment1.html">Assignment1</a></li>
+                    <li class="active"><a href="assignment2.html">Assignment2</a></li>
+                    <li ><a href="assignment3.html">Assignment3</a></li>
+                </ul>
+            </div>
+        </div><!--/.nav-collapse -->
+    </nav>
+    <!-- Navigation End -->
+
+
+    <div class="container">
+        <div class="col col-md-3">
+            <!--widget -->
+            <div style="margin-bottom:20px">
+                <iframe style="display: block;" src="http://cdnres.willyweather.com/widget/loadView.html?id=57888" width="260" height="228" frameborder="0" scrolling="no">
+                </iframe>
+                <a style="margin: -20px 0 0 0;text-indent: -9999em;height: 20px;position: relative;z-index: 1;display: block" href="http://www.willyweather.com/ca/san-diego-county/san-diego.html">The latest weather for san diego</a>
+            </div>
+            <script type="text/javascript" src="http://100widgets.com/js_data.php?id=69"></script>
+        </div>
+
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <div id="map" class="col col-md-9"></div>
+    </div>
+
+
+    <script>
+
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe0ibhi9zKFcyx5rC9qUt8QCAZ-zZogaY&libraries=places&callback=initAutocomplete"
+         async defer></script>
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
